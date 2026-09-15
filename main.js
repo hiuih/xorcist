@@ -15,6 +15,8 @@ const ALLOWED_HOSTS = [
   'x.com',
   'twitter.com',
   'twimg.com',
+  'accounts.google.com',
+  'appleid.apple.com',
 ];
 
 // Proactively resolves Notification.permission instead of waiting on X's
