@@ -11,6 +11,15 @@ const X_URL = 'https://x.com/home';
 // Electron is genuinely Chromium; strip the "Electron/x.x.x" token so
 // X's UA sniffing recognizes it as a real Chrome build.
 const CHROME_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+
+// The session/webContents-level UA overrides below aren't reliably applied
+// to a brand-new popup window's very first navigation — verified live: the
+// Apple/Google sign-in popup's first request went out with the real
+// Electron default UA baked in, only correcting itself on the SECOND
+// request. app.userAgentFallback changes Electron's own baseline default
+// before any renderer process ever spawns, which fixes this at the root
+// instead of racing to override it after the fact.
+app.userAgentFallback = CHROME_UA;
 const ALLOWED_HOSTS = [
   'x.com',
   'twitter.com',
